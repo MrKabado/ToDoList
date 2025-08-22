@@ -13,10 +13,12 @@ const Button = ({to, type, text, icon, divClassName, btnClassName, onClick}) => 
       ) 
       :    
       (
-        <button type={type} className={btnClassName} onClick={onClick}>
-          {text}
-          {icon}
-        </button>
+        <a>
+          <button type={type} className={btnClassName} onClick={onClick}>
+            {text}
+            {icon}
+          </button>
+        </a>
       )
       }
     </div>

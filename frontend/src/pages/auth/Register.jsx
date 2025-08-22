@@ -2,10 +2,10 @@ import React from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Register = () => {
-  // const navigate = Navigate();
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -26,6 +26,8 @@ const Register = () => {
       if(response.data.success) {
         alert('success')
       }
+
+      navigate('/homepage');
       
     } catch (error) {
       console.log('Error fetching data: ', error);

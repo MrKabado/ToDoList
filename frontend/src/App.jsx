@@ -4,6 +4,7 @@ import Login from './pages/auth/Login'
 import Fallback from './pages/Fallback'
 import HomePage from './pages/HomePage'
 import Register from './pages/auth/Register'
+import LandingPage from './pages/LandingPage'
 
 const App = () => {
   return (
@@ -11,7 +12,9 @@ const App = () => {
       <Routes>
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />}/>
-        <Route path='/' element={<HomePage />}/>
+        <Route path='/' element={<LandingPage />}/>
+
+        <Route path='homepage/*' element={<HomePage />}/>
 
         <Route path='*' element={<Fallback />}/>
       </Routes>
