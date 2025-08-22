@@ -1,7 +1,38 @@
 import React from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+import { Navigate } from 'react-router-dom'
 
 const Register = () => {
+  // const navigate = Navigate();
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    confirm_password: ""
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (form.password != form.confirm_password) {
+      alert("nahh");
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:8080/api/users/register', form)
+
+      if(response.data.success) {
+        alert('success')
+      }
+      
+    } catch (error) {
+      console.log('Error fetching data: ', error);
+      console.log('bug');
+    }
+  }
+
   return (
     <>
       <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -22,7 +53,7 @@ const Register = () => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
+          <form onSubmit={handleSubmit} action="#" method="POST" className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
                 Email address
@@ -32,6 +63,9 @@ const Register = () => {
                   id="email"
                   name="email"
                   type="email"
+                  onChange={(e) => 
+                    setForm(prev => ({...prev, email: e.target.value}))
+                  }
                   required
                   autoComplete="email"
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500"
@@ -50,6 +84,9 @@ const Register = () => {
                   id="password"
                   name="password"
                   type="password"
+                  onChange={(e) => 
+                    setForm(prev => ({...prev, password: e.target.value}))
+                  }
                   required
                   autoComplete="current-password"
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500"
@@ -68,6 +105,9 @@ const Register = () => {
                   id="confirm_password"
                   name="confirm_password"
                   type="password"
+                  onChange={(e) => 
+                    setForm(prev => ({...prev, confirm_password: e.target.value}))
+                  }
                   required
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500"
                 />
