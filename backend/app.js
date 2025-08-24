@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
-import usersDiares from './routes/usersRoutes.js'
-import diaresDiares from './routes/diaresRoutes.js'
+import usersRoutes from './routes/usersRoutes.js'
+import diaresRoutes from './routes/diaresRoutes.js'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 
@@ -14,9 +14,9 @@ app.use(cors({
   origin: 'http://localhost:5173'
 }))
 
-app.use('/api/users', usersDiares)
+app.use('/api/users', usersRoutes)
 
-app.use('/api/diares', diaresDiares)
+app.use('/api/diares', diaresRoutes)
 
 
 mongoose.connect(process.env.MONGO_URI)

@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import NavBar from '../../components/NavBar';
 
 const AddDiary = () => {
   const Navigate = useNavigate();
@@ -19,8 +20,7 @@ const AddDiary = () => {
     try {
       const sendDiary = await axios.post("http://localhost:8080/api/diares/", form);
       if (sendDiary.data.success) {
-        alert('Success');
-        alert("Done submitting the diary title: " + sendDiary.data.diary.title);
+        alert(sendDiary.data.message);
         window.location.reload();
       }
 
@@ -28,8 +28,6 @@ const AddDiary = () => {
       console.log(error);
     }
   }
-
-  
 
   return (
     <div className='border'>

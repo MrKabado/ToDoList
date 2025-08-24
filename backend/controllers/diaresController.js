@@ -10,6 +10,7 @@ export const createDiary = async (req, res) => {
     res.json({
       success: true,
       diary: newDiary,
+      message: "Diary added successfully!",
     })
 
     console.log(`title: ${title} \ndate: ${date} \ntime: ${time} \nmessage: ${message}`);

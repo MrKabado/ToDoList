@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import usersModel from "../models/usersSchema.js";
 import bcrypt from 'bcrypt';
 
@@ -41,4 +42,49 @@ export const checkUsers = async (req, res) => {
   }
 
   return res.json({success: true, message: "Login Successfully", user: user.name});
+}
+
+
+export const updatePassword = async (req, res) => {
+  const {email, password} = req.body;
+
+  try { 
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const updatedUser = await usersModel.findOneAndUpdate(
+      {email},
+      {password: hashedPassword},
+      {new: true},
+    )
+
+    if (!updatedUser.email) {
+      return res.status(404).json({success: false, message: "Email not found"});
+    }
+
+    res.json({success: true, message: "Password changed successfully"});
+
+
+  return res.json({success: true, message: "Password changed successfully"});
+  } catch (error) {
+    return res.status(500).json({success: false, message: error.message})
+  }
+};
+
+
+export const checkEmail = async (req, res) => {
+  const {email} = req.body;
+
+  try {
+    const user = await usersModel.findOne({email});
+
+    if (!user) {
+      console.log("no email like that");
+      return res.status(404).json({success: false, message: "Email Not Found"});
+    }
+
+    return res.json({success: true, message: "Email Verified"})
+
+  } catch (error) {
+    return res.status(500).json({success: false, message: error.message})
+  }
 }

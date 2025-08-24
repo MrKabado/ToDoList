@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 const Register = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({
+    name: "",
     email: "",
     password: "",
     confirm_password: ""
@@ -16,22 +17,30 @@ const Register = () => {
     e.preventDefault();
 
     if (form.password != form.confirm_password) {
-      alert("nahh");
+      alert("Passwords do not match");
       return;
     }
 
     try {
-      const response = await axios.post('http://localhost:8080/api/users/registered-user', form)
+      const response = await axios.post('http://localhost:8080/api/users/registered-user', form)    
 
       if(response.data.success) {
-        alert('success')
+        alert(response.data.message + ", Hello " + response.data.users.name);
+        navigate('/homepage');
       }
 
-      navigate('/homepage');
+      else {
+        console.log(response.data.message);
+        alert(response.data.message);
+      }
       
     } catch (error) {
-      console.log('Error fetching data: ', error);
-      console.log('bug');
+
+      if (error.response) {
+        alert(error.response.data.message)
+      } else {
+        alert('Something went wrong');
+      }   
     }
   }
 
@@ -56,6 +65,26 @@ const Register = () => {
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form onSubmit={handleSubmit} action="#" method="POST" className="space-y-6">
+
+          <div>
+              <label htmlFor="name" className="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+                Name
+              </label>
+              <div className="mt-2">
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  onChange={(e) => 
+                    setForm(prev => ({...prev, name: e.target.value}))
+                  }
+                  required
+                  autoComplete="name"
+                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500"
+                />
+              </div>
+            </div>
+
             <div>
               <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
                 Email address
