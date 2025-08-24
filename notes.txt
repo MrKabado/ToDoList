@@ -1,0 +1,20 @@
+http status codes
+
+200 - OK
+201 - Created
+204 - No Content
+
+301 - Moved Permanently
+302 - Found
+304 - Not Modified
+
+400 - Bad Request
+401 - Unauthorized
+403 - Forbidded
+404 - not Found
+429 - too many Request
+
+500 - Internal server error
+502 - Bad Gateway
+503 - Service Unavailable
+504 - Gateway Timeout

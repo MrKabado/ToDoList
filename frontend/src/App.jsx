@@ -5,6 +5,7 @@ import Fallback from './pages/Fallback'
 import HomePage from './pages/HomePage'
 import Register from './pages/auth/Register'
 import LandingPage from './pages/LandingPage'
+import AddDiary from './pages/diary/AddDiary'
 
 const App = () => {
   return (
@@ -14,7 +15,8 @@ const App = () => {
         <Route path='/register' element={<Register />}/>
         <Route path='/' element={<LandingPage />}/>
 
-        <Route path='homepage/*' element={<HomePage />}/>
+        <Route path='/homepage' element={<HomePage />} />
+        <Route path='/homepage/add-diary' element={<AddDiary />}/>
 
         <Route path='*' element={<Fallback />}/>
       </Routes>
