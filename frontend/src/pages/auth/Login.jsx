@@ -17,7 +17,8 @@ const Login = () => {
       const login = await axios.post('http://localhost:8080/api/users/login-user', loginData);
       if(login.data.success) {
         alert(login.data.message + ", Hello " + login.data.user);
-        Navigate('/homepage');
+        
+        Navigate('/homepage', {state: {email: loginData.email}});
       }
 
     } catch(error) {
@@ -94,12 +95,19 @@ const Login = () => {
               </div>
             </div>
 
-            <div>
+            <div className="flex flex-col gap-3">
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:shadow-none dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500"
               >
                 Sign in
+              </button>
+
+              <button 
+                className='border py-1 px-2 rounded-md cursor-pointer hover:bg-gray-100'
+                onClick={() => Navigate('/')}
+              >
+                Return
               </button>
             </div>
           </form>

@@ -19,7 +19,7 @@ const LogoutModal = ({id, cancelOnclick}) => {
 
               <Link 
                 className="btn bg-red-600 text-white transition hover:bg-red-700"
-                to="/login"
+                to="/"
               >
                 Logout
               </Link>

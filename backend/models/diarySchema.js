@@ -20,7 +20,15 @@ const diarySchema = new mongoose.Schema({
     type: String,
     required: true,
   }
+});
+
+const userDiarySchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+  },
+  diaries: [diarySchema]
 })
 
-const DiaryModel = mongoose.model("DiaryModel", diarySchema);
+const DiaryModel = mongoose.model("Diary", userDiarySchema);
 export default DiaryModel;

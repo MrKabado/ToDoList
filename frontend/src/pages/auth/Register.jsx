@@ -26,7 +26,7 @@ const Register = () => {
 
       if(response.data.success) {
         alert(response.data.message + ", Hello " + response.data.users.name);
-        navigate('/homepage');
+        navigate('/login');
       }
 
       else {
@@ -145,12 +145,20 @@ const Register = () => {
               </div>
             </div>
 
-            <div>
+            <div className='flex flex-col gap-3'>
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:shadow-none dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500"
               >
-                Create
+                Register
+              </button>
+
+              <button
+                type="button"
+                className='border py-1 px-2 rounded-md cursor-pointer hover:bg-gray-100'
+                onClick={() => navigate('/')}
+              >
+                Return
               </button>
             </div>
           </form>

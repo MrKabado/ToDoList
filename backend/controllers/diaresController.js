@@ -1,28 +1,31 @@
 import DiaryModel from "../models/diarySchema.js";
 
 export const createDiary = async (req, res) => {
+  const { email, title, date, time, message } = req.body;
+
   try {
-    const { title, date, time, message } = req.body;
 
-    const newDiary = new DiaryModel({title, date, time, message});
-    await newDiary.save();
-    res.status(201);
+    const newDiary = await DiaryModel.findOneAndUpdate(
+      { email },
+      { $push: { diaries: {title, date, time, message}}},
+      { new: true, upsert: true},
+    );
+    
     res.json({
+      data: newDiary,
       success: true,
-      diary: newDiary,
-      message: "Diary added successfully!",
-    })
+      message: "Added Diary Successfully",
+    });
 
-    console.log(`title: ${title} \ndate: ${date} \ntime: ${time} \nmessage: ${message}`);
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
-}
+};
 
 export const getDiaries = async (req, res) => {
   try {
     const diaries = await DiaryModel.find();
-    res.status(200).json(diares);
+    res.status(200).json(diaries);
   } catch (err) {
     res.status(500).json({error: err.message});
   }

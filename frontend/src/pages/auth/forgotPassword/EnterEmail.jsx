@@ -1,5 +1,5 @@
 import {React, useState} from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios';
 
 const EnterEmail = () => {
@@ -74,6 +74,16 @@ const EnterEmail = () => {
                 Next
               </button>
             </div>
+
+            <div>
+              <Link
+              to="/login"
+              className="flex w-full justify-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm/6 font-semibold text-gray-700 shadow-sm hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-600 dark:focus-visible:outline-gray-400"
+              >
+                Return
+              </Link>
+            </div>
+
           </form>
         </div>
       </div>

@@ -3,7 +3,7 @@ import { createDiary, getDiaries} from '../controllers/diaresController.js'
 
 const diares = express.Router();
 
-diares.post('/', createDiary);
+diares.post('/create-diary', createDiary);
 
 diares.get('/', getDiaries);
 

@@ -3,7 +3,9 @@ import { Outlet, Link, useNavigate } from 'react-router-dom'
 import LogoutModal from './modal/LogoutModal'
 import StockProfile from '../assets/StockProfile.jpg'
 
-const NavBar = ({notifButtonCircle}) => {
+const NavBar = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <div>
       <div className="navbar bg-base-100 shadow-sm">
@@ -32,9 +34,13 @@ const NavBar = ({notifButtonCircle}) => {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
               <li>
+                <p className='font-semibold text-md'>
+                  {user.name}
+                </p>
+              </li>
+              <li>
                 <a className="justify-between">
                   Profile
-                  <span className="badge">New</span>
                 </a>
               </li>
               <li>
