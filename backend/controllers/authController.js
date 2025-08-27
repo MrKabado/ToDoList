@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import usersModel from "../models/usersSchema.js";
 import bcrypt from 'bcrypt';
+import nodemailer from 'nodemailer';
 
 export const createUsers = async (req, res) => {
   try {
@@ -87,4 +88,40 @@ export const checkEmail = async (req, res) => {
   } catch (error) {
     return res.status(500).json({success: false, message: error.message})
   }
+}
+
+export const sendCode = async (req, res) => {
+  try {
+    const { otp, email } = req.body;
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      port: 587,
+      secure: false,
+      auth: {
+        user: "jersonjaybonghanoy@gmail.com",
+        pass: process.env.EMAIL_APP_PASS,
+      },
+    });
+  
+    const info = await transporter.sendMail({
+      from: '"Jerson Jay" <jersonjaybonghanoy@gmail.com>',
+      to: email,
+      subject: "OTP CODE",
+      text: String(otp),
+      html: `For your account security, we have sent you a one-time code. Enter this code to proceed with the next step. <br />OTP CODE: <b>${otp}</b>`,
+    });
+
+    console.log("Message sent: ", info.messageId);
+    return res.json({
+      success: true,
+      message: "OTP has been sent",
+      otpCode: otp,
+    })
+
+
+  } catch (err) {
+    return res.status(500).json({success: false, message: err.message});
+  }
+
 }

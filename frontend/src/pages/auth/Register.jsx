@@ -16,6 +16,10 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // if (form.password < 8 && !/\d/.test(form.password)) {
+    //   alert("Password should have a minimum of 8 characters and include a number.");
+    // }
+
     if (form.password != form.confirm_password) {
       alert("Passwords do not match");
       return;

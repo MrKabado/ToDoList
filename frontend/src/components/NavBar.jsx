@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Outlet, Link, useNavigate } from 'react-router-dom'
 import LogoutModal from './modal/LogoutModal'
 import StockProfile from '../assets/StockProfile.jpg'
+import { UserContext } from '../context/UserContext'
 
 const NavBar = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { user } = useContext(UserContext);
 
   return (
     <div>
@@ -34,8 +35,8 @@ const NavBar = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
               <li>
-                <p className='font-semibold text-md'>
-                  {user.name}
+                <p className='font-semibold text-md text-indigo-600'>
+                  {user?.name}
                 </p>
               </li>
               <li>
