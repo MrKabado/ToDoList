@@ -25,7 +25,7 @@ const HompageContent = () => {
 
       if (response.data.success) {
         setUser(response.data.data);
-        localStorage.setItem("user", JSON.stringify(response.data.data));  
+        localStorage.setItem("user", JSON.stringify(response.data.data));
       }
 
     } catch (error) {
@@ -85,11 +85,11 @@ const HompageContent = () => {
                   </tbody>
                 </table>
               </div>
-            <Link 
-              to='add-diary' 
+            <button 
+              onClick={() => navigate('/diaries', {state: {email}})}
               className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:shadow-none dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500'>
                 View All
-            </Link>
+            </button>
           </div>
 
           <div className='shadow-md rounded-md w-full flex flex-col items-center gap-3 p-2'>

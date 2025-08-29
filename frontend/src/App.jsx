@@ -10,6 +10,7 @@ import NavBar from './components/NavBar'
 import EnterEmail from './pages/auth/forgotPassword/EnterEmail'
 import UpdatePass from './pages/auth/forgotPassword/UpdatePass'
 import EnterCode from './pages/auth/forgotPassword/EnterCode'
+import DiaryList from './pages/diary/DiaryList'
 
 const App = () => {
   return (
@@ -25,6 +26,8 @@ const App = () => {
         <Route path='/forgot-password' element={<EnterEmail />}/>
         <Route path='/enter-code' element={<EnterCode />}/>
         <Route path='/new-password' element={<UpdatePass />}/>
+
+        <Route path='/diaries' element={<DiaryList />}/>
 
         <Route path='*' element={<Fallback />}/>
       </Routes>
