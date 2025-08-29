@@ -27,7 +27,7 @@ const userDiarySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  diaries: [diarySchema]
+  diaries:  [diarySchema], 
 })
 
 const DiaryModel = mongoose.model("Diary", userDiarySchema);

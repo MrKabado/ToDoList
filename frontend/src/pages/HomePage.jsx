@@ -3,13 +3,18 @@ import { useNavigate, Link, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import NavBar from '../components/NavBar'
 import { UserProvider, UserContext } from '../context/UserContext.jsx'
+import { DiaryContext, DiaryProvider } from '../context/DiaryContext'
 
 const HompageContent = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const email = location.state?.email;
   
-  const {user, setUser} = useContext(UserContext)
+  const {user, setUser} = useContext(UserContext);
+
+  const {diaries, setDiaries} = useContext(DiaryContext);
+
+  const [indexVal, setIndexVal] = useState(0);
 
   const fetchUser = async () => {
     try {
@@ -50,6 +55,36 @@ const HompageContent = () => {
 
           <div className='shadow-md rounded-md w-full flex flex-col items-center gap-3 p-2'>
             <h1 className='font-semibold text-center'>Your Latest Diaries</h1>
+              <div className='w-full'>
+                <table className='w-full'>
+                  <tbody className='flex flex-col gap-2'>
+                    { diaries.length > 0 ? 
+                    (
+                      (diaries.length <= 3 ? diaries : diaries.slice(0, 3)).map((diaries, index) => (
+                        <tr 
+                          key={index}
+                          className='flex justify-between px-4 py-2 rounded-md shadow-md'
+                        >
+                          <td>
+                            {diaries.title}
+                          </td>
+
+                          <td>
+                            {diaries.date}
+                          </td>
+
+                          <td>{diaries.time}</td>
+                        </tr>                 
+                      ))
+                    ) : (
+                      <tr className='w-full shadow-md rounded-md px-4 py-2 flex'>
+                        <td colSpan="2" className='text-center w-full'>No diaries yet</td>
+                      </tr>
+                    )
+                  }
+                  </tbody>
+                </table>
+              </div>
             <Link 
               to='add-diary' 
               className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:shadow-none dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500'>
@@ -75,9 +110,13 @@ const HompageContent = () => {
 
 
 const HomePage = () => {
+  const location = useLocation();
+  const email = location.state?.email;
   return (
     <UserProvider>
-      <HompageContent />
+      <DiaryProvider email={email}>
+        <HompageContent />
+      </DiaryProvider>
     </UserProvider>
   )
 }

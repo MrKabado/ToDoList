@@ -7,7 +7,14 @@ export const createDiary = async (req, res) => {
 
     const newDiary = await DiaryModel.findOneAndUpdate(
       { email },
-      { $push: { diaries: {title, date, time, message}}},
+      { 
+        $push: { 
+          diaries: {
+            $each: [{title, date, time, message}],
+            $position: 0
+          },        
+        }
+      },
       { new: true, upsert: true},
     );
     
